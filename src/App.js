@@ -4,8 +4,17 @@ import "./App.css";
 
 const App = () => {
   //Setting the Pokemon state
-  const [pokemonName, setPokkemonName] = useState("");
-  const [pokemon, setPokemon] = useState({});
+  const [pokemonName, setPokemonName] = useState("");
+  const [pokemonChosen, setPokemonChosen] = useState(false)
+  const [pokemon, setPokemon] = useState({
+    name: "",
+    species: "",
+    img: "",
+    hp: "",
+    attack: "",
+    defense: "",
+    types: "",
+  });
 
   // Handling the search for pokemon event and consuming the pokemon Api
   const searchPokemonName = () => {
@@ -18,7 +27,9 @@ const App = () => {
           hp: response.data.stats[0].base_stat,
           attack: response.data.stats[1].base_stat,
           defense: response.data.stats[2].base_stat,
+          types: response.data.stats[0].type.name,
         });
+        setPokemonChosen(true)
       }
     );
   };
@@ -29,9 +40,12 @@ const App = () => {
         <h1>Home pokemon</h1>
         <input
           type={pokemonName}
-          onChange={(e) => setPokkemonName(e.target.value)}
+          onChange={(e) => setPokemonName(e.target.value)}
         />
         <button onClick={searchPokemonName}>Search pokemon</button>
+      </div>
+      <div className="displaySection">
+        {!pokemonChosen ? (<h2>Please check pokemon chosen</h2>) : (<h1>{pokemonName}</h1>)}
       </div>
     </div>
   );
