@@ -97,3 +97,6 @@ button{
   background-color: #202142;
   color: #fff;
 }
+button:hover{
+  background-color: #000;
+}

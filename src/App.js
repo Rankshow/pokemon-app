@@ -16,7 +16,30 @@ const App = () => {
     types: "",
   });
 
-  // Handling the search for pokemon event and consuming the pokemon Api
+  // Handling the the add event
+  const handleAdd = () => {
+    setPokemon('')
+  }
+  
+  // handling the remove event
+  const handleRemove = ({pokemon}) => {
+    return(
+      <>
+       {
+        searchPokemonName.filter(poke => {
+          if (pokemon !== poke.id){
+            return pokemon;
+          } else {
+            return setPokemonChosen(false)
+          }
+        })
+       }
+      </>
+    )
+  }
+
+
+  // Handling the search event and consuming the pokemon Api
   const searchPokemonName = () => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
@@ -60,10 +83,10 @@ const App = () => {
                   <h2><span>Point:</span> {pokemon.hp}</h2>
                   <h2><span>Type:</span> {pokemon.type}</h2>
                   <h2><span>Attack:</span> {pokemon.attack}</h2>
-                  <h2><span>Attack:</span> {pokemon.attack}</h2>
+                  <h2><span>Defense:</span> {pokemon.defense}</h2>
                 <div className="btn">
-                  <button>add</button>
-                  <button>remove</button>
+                  <button onClick={handleAdd}>Add</button>
+                  <button onClick={handleRemove}>Remove</button>
                 </div>
               </div>
             </>
