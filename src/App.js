@@ -21,6 +21,7 @@ const App = () => {
     axios
       .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
       .then((response) => {
+        console.log(response)
         setPokemon({
           name: pokemonName,
           species: response.data.name,
@@ -29,16 +30,18 @@ const App = () => {
           attack: response.data.stats[1].base_stat,
           defense: response.data.stats[2].base_stat,
           type: response.data.types[0].type.name,
+          move: response.data.moves[1]?.move.name,
         });
         setPokemonChosen(true);
       });
   };
-
+  
+  // Rendering the pokemon items to the DOM
   return (
     <>
       <div className="App">
         <div className="container">
-          <h1>Home pokemon</h1>
+          <h1>Pokemon Features</h1>
           <input
             type={pokemonName}
             onChange={(e) => setPokemonName(e.target.value)}
@@ -52,7 +55,16 @@ const App = () => {
             <>
               <div className="subSection">
                 <h1>{pokemon.name}</h1>
-                <img src={pokemon.img} />
+                <img src={pokemon.img} alt=""/>
+                  <h2><span>Species:</span> {pokemon.move}</h2>
+                  <h2><span>Point:</span> {pokemon.hp}</h2>
+                  <h2><span>Type:</span> {pokemon.type}</h2>
+                  <h2><span>Attack:</span> {pokemon.attack}</h2>
+                  <h2><span>Attack:</span> {pokemon.attack}</h2>
+                <div className="btn">
+                  <button>add</button>
+                  <button>remove</button>
+                </div>
               </div>
             </>
           )}
